@@ -3,32 +3,35 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Buki Autómentés 0-24 – Gyors segítség, bárhol, bármikor</title>
-  <meta name="description" content="Autómentés 0-24, országos lefedettséggel. Hívj most: +36 30 012 3690.">
+  <title data-i18n="meta_title">Buki Autómentés 0-24 – Gyors segítség, bárhol, bármikor</title>
+  <meta name="description" data-i18n-attr="content:meta_desc" content="Autómentés 0-24, országos lefedettséggel. Hívj most: +36 30 012 3690.">
   <style>
     :root{
-      --bg:#0b0b0b;
-      --card:#121212;
-      --ink:#f4f4f4;
-      --muted:#b3b3b3;
-      --accent:#f7b500; /* fekete-sárga */
-      --stroke:#1f1f1f;
+      --bg:#0b0b0b; --card:#121212; --ink:#f4f4f4; --muted:#b3b3b3;
+      --accent:#f7b500; --stroke:#1f1f1f;
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif}
     a{color:inherit;text-decoration:none}
     .container{max-width:1100px;margin:0 auto;padding:24px}
+
     header{display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid var(--stroke)}
     header img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--accent)}
     .brand{font-weight:800;font-size:20px;letter-spacing:.3px}
-    .cta{margin-left:auto;display:flex;align-items:center;gap:10px}
-    .cta .btn{display:inline-block;padding:10px 16px;border-radius:999px;border:1px solid var(--accent);color:var(--bg);background:var(--accent);font-weight:700}
-    .cta .ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+    .spacer{flex:1}
+    .lang{display:flex;align-items:center;gap:8px}
+    .lang label{font-size:12px;color:var(--muted)}
+    .lang select{background:#141414;color:var(--ink);border:1px solid var(--stroke);padding:6px 10px;border-radius:10px}
+
+    .cta{display:flex;align-items:center;gap:10px}
+    .btn{display:inline-block;padding:10px 16px;border-radius:999px;border:1px solid var(--accent);color:#0b0b0b;background:var(--accent);font-weight:700}
+    .ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
     .social{display:flex;gap:10px}
     .social a{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:999px;border:1px solid var(--stroke);background:#141414}
     .social svg{width:18px;height:18px;stroke:var(--ink)}
+
     .hero{background:linear-gradient(180deg,#0b0b0b 0%,#121212 100%);border-bottom:1px solid var(--stroke)}
-    .hero-inner{display:grid;gap:12px;padding:48px 0;text-align:center}
+    .hero-inner{display:grid;gap:12px;padding:32px 0;text-align:center}
     .badge{display:inline-flex;gap:6px;align-items:center;padding:6px 10px;background:var(--accent);color:#000;border-radius:999px;font-size:12px;font-weight:800}
     h1{font-size:clamp(32px,6vw,56px);margin:8px 0 0;line-height:1.05;letter-spacing:-.02em}
     .sub{font-size:18px;color:var(--muted);margin:8px 0 0}
@@ -37,21 +40,20 @@
     .actions{margin-top:20px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
     .btn-primary{background:var(--accent);color:#000;padding:12px 18px;border-radius:10px;font-weight:800}
     .btn-outline{border:1px solid var(--ink);padding:12px 18px;border-radius:10px}
-    section{padding:56px 0}
+
+    section{padding:40px 0}
     h2{font-size:28px;margin:0 0 24px}
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
     .card{border:1px solid var(--stroke);border-radius:14px;padding:18px;background:var(--card)}
     .card h3{margin:0 0 8px;font-size:18px}
     .muted{color:var(--muted)}
+
     .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-    .gallery img {
-  width: 100%;
-  height: auto;         /* a magasság igazodik az arányhoz */
-  object-fit: contain;  /* a teljes kép látszik, nem vágja */
-  display: block;
-  border: 1px solid var(--stroke);
-  border-radius: 12px;
-  background: #0d0d0d;  /* ha a kép nem tölti ki teljesen a teret, fekete háttér */}
+    .gallery img{
+      width:100%; height:auto; object-fit:contain; display:block;
+      border:1px solid var(--stroke); border-radius:12px; background:#0d0d0d;
+    }
+
     footer{border-top:1px solid var(--stroke);background:#0d0d0d;padding:32px 0}
     .footer-grid{display:grid;grid-template-columns:1fr;align-items:center;gap:12px}
     .small{font-size:14px;color:var(--muted)}
@@ -61,11 +63,27 @@
 <body>
   <div class="container">
     <header>
-      <img src="https://polite-horse-7e2d22.netlify.app/assets/logo_round.png" alt="Buki Autómentés 0-24 logó">
-      <div class="brand">Buki Autómentés 0-24</div>
+      <img src="https://polite-horse-7e2d22.netlify.app/assets/logo_round.png" alt="Buki Autómentés 0-24">
+      <div class="brand" data-i18n="brand">Buki Autómentés 0-24</div>
+      <div class="spacer"></div>
+
+      <!-- Nyelvválasztó -->
+      <div class="lang">
+        <label data-i18n="language">Nyelv</label>
+        <select id="langSelect" aria-label="Language">
+          <option value="hu">HU</option>
+          <option value="en">EN</option>
+          <option value="uk">UA</option>
+          <option value="ru">RU</option>
+          <option value="cs">CS</option>
+          <option value="ro">RO</option>
+          <option value="sk">SK</option>
+        </select>
+      </div>
+
       <div class="cta">
-        <a class="btn" href="tel:+36300123690">Hívás: +36 30 012 3690</a>
-        <a class="btn ghost" href="mailto:buki.automentes@gmail.com">Email</a>
+        <a class="btn phone-link" href="tel:+36300123690" data-i18n="call_btn">Hívás: +36 30 012 3690</a>
+        <a class="btn ghost" href="mailto:buki.automentes@gmail.com" data-i18n="email_btn">Email</a>
         <div class="social">
           <a aria-label="Facebook" href="https://www.facebook.com/share/16ud2iAWBk/?mibextid=wwXIfr" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h-3a5 5 0 0 0-5 5v3H5v4h2v6h4v-6h3l1-4h-4V8a1 1 0 0 1 1-1h3V3z" stroke-width="1.6"/></svg>
@@ -80,73 +98,58 @@
 
   <div class="hero">
     <div class="container hero-inner">
-      <div class="badge">⚡ Autómentés ÉJJEL–NAPPAL — Országszerte</div>
-      <h1>GYORS SEGÍTSÉG,<br/>BÁRHOL, BÁRMIKOR</h1>
-      <p class="sub">Gyors, biztonságos, korrekt. A Buki Autómentés 0–24 a gyorsaság, a biztonság és a tisztességes ár garanciája – mert tudjuk, mennyire fontos a megbízható segítség a nehéz helyzetekben.</p>
+      <div class="badge" data-i18n="badge">⚡ Autómentés ÉJJEL–NAPPAL — Országszerte</div>
+      <h1 data-i18n="h1">GYORS SEGÍTSÉG,<br/>BÁRHOL, BÁRMIKOR</h1>
+      <p class="sub" data-i18n="sub">
+        Gyors, biztonságos, korrekt. A Buki Autómentés 0–24 a gyorsaság, a biztonság és a tisztességes ár garanciája.
+      </p>
       <div class="kv">
-        <div class="pill">Országos lefedettség</div>
-        <div class="pill">Biztonságos megoldás</div>
-        <div class="pill">Korrekt árak</div>
+        <div class="pill" data-i18n="pill_1">Országos lefedettség</div>
+        <div class="pill" data-i18n="pill_2">Biztonságos megoldás</div>
+        <div class="pill" data-i18n="pill_3">Korrekt árak</div>
       </div>
       <div class="actions">
-        <a class="btn-primary" href="tel:+36300123690">Most hívj: +36 30 012 3690</a>
-        <a class="btn-outline" href="mailto:buki.automentes@gmail.com">Email: buki.automentes@gmail.com</a>
+        <a class="btn-primary phone-link" href="tel:+36300123690" data-i18n="cta_primary">Most hívj: +36 30 012 3690</a>
+        <a class="btn-outline" href="mailto:buki.automentes@gmail.com" data-i18n="cta_email">Email: buki.automentes@gmail.com</a>
       </div>
     </div>
   </div>
 
   <section class="container">
-    <h2>Miért minket hívj?</h2>
+    <h2 data-i18n="why_title">Miért minket hívj?</h2>
     <div class="grid">
-      <div class="card">
-        <h3>⏱️ Villámgyors kiszállás</h3>
-        <p class="muted">Éjjel-nappal elérhetők vagyunk, a legtöbb esetben azonnal indulunk.</p>
-      </div>
-      <div class="card">
-        <h3>🛠️ Szakszerű megoldás</h3>
-        <p class="muted">Modern eszközök, tapasztalt sofőrök és biztosítással fedezett munka.</p>
-      </div>
-      <div class="card">
-        <h3>💬 Korrekt kommunikáció</h3>
-        <p class="muted">Előre egyeztetett, tisztességes árak – nincsenek rejtett költségek.</p>
-      </div>
-      <div class="card">
-        <h3>🚚 Szállítás bárhová</h3>
-        <p class="muted">Autó, kisteher, veterán – országon belül és határ közelében is.</p>
-      </div>
-      <div class="card">
-        <h3>🤝 Segítőkész hozzáállás</h3>
-        <p class="muted">Tudjuk, hogy bajban minden perc számít. Emberközeli, nyugodt ügyintézés.</p>
-      </div>
-      <div class="card">
-        <h3>📞 Azonnali kapcsolat</h3>
-        <p class="muted">Telefonon felmérjük a helyzetet és a legrövidebb megoldást adjuk.</p>
-      </div>
+      <div class="card"><h3 data-i18n="why_1_t">⏱️ Villámgyors kiszállás</h3><p class="muted" data-i18n="why_1_d">Éjjel-nappal elérhetők vagyunk, a legtöbb esetben azonnal indulunk.</p></div>
+      <div class="card"><h3 data-i18n="why_2_t">🛠️ Szakszerű megoldás</h3><p class="muted" data-i18n="why_2_d">Modern eszközök, tapasztalt sofőrök és biztosítással fedezett munka.</p></div>
+      <div class="card"><h3 data-i18n="why_3_t">💬 Korrekt kommunikáció</h3><p class="muted" data-i18n="why_3_d">Előre egyeztetett, tisztességes árak – nincsenek rejtett költségek.</p></div>
+      <div class="card"><h3 data-i18n="why_4_t">🚚 Szállítás bárhová</h3><p class="muted" data-i18n="why_4_d">Autó, kisteher, veterán – országon belül és határ közelében is.</p></div>
+      <div class="card"><h3 data-i18n="why_5_t">🤝 Segítőkész hozzáállás</h3><p class="muted" data-i18n="why_5_d">Bajban minden perc számít. Emberközeli, nyugodt ügyintézés.</p></div>
+      <div class="card"><h3 data-i18n="why_6_t">📞 Azonnali kapcsolat</h3><p class="muted" data-i18n="why_6_d">Telefonon felmérjük a helyzetet és a legrövidebb megoldást adjuk.</p></div>
     </div>
   </section>
 
   <section class="container">
-    <h2>Rólunk röviden</h2>
-    <p class="muted">„Ha autómentésre van szükséged, számíthatsz ránk éjjel-nappal, bárhol az országban. A Buki Autómentés 0-24 a gyorsaság, a biztonság és a tisztességes ár garanciája – mert tudjuk, mennyire fontos a megbízható segítség a nehéz helyzetekben.”</p>
-    <p class="muted">Fiatalos, lendületes csapat vagyunk: nem csak vezetünk, meg is oldjuk a helyzetet. Okos útvonaltervezéssel, korszerű felszereléssel és higgadt kommunikációval dolgozunk, hogy te végig biztonságban érezd magad.</p>
+    <h2 data-i18n="about_title">Rólunk röviden</h2>
+    <p class="muted" data-i18n="about_1">„Ha autómentésre van szükséged, számíthatsz ránk éjjel-nappal, bárhol az országban.”</p>
+    <p class="muted" data-i18n="about_2">Fiatalos, lendületes csapat vagyunk: okos útvonaltervezéssel, korszerű felszereléssel és higgadt kommunikációval dolgozunk.</p>
   </section>
 
   <section class="container">
-    <h2>Galéria – munkáinkból</h2>
+    <h2 data-i18n="gallery_title">Galéria – munkáinkból</h2>
     <div class="gallery">
-      <img src="gallery1.jpg" alt="Autómentés – kép 1">
-      <img src="gallery2.jpg" alt="Autómentés – kép 2">
-      <img src="gallery3.jpg" alt="Autómentés – kép 3">
-      <img src="gallery4.jpg" alt="Autómentés – kép 4">
+      <img src="gallery1.jpg" alt="Gallery 1">
+      <img src="gallery2.jpg" alt="Gallery 2">
+      <img src="gallery3.jpg" alt="Gallery 3">
+      <img src="gallery4.jpg" alt="Gallery 4">
     </div>
   </section>
 
   <footer>
     <div class="container footer-grid">
-      <img src="https://polite-horse-7e2d22.netlify.app/assets/logo_round.png" alt="Buki logó" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--accent)">
-      <div class="small">Buki Autómentés 0-24 • Országos lefedettség • Biztonságos megoldás • Korrekt árak</div>
+      <img src="https://polite-horse-7e2d22.netlify.app/assets/logo_round.png" alt="Buki logo" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--accent)">
+      <div class="small" data-i18n="footer_line">Buki Autómentés 0-24 • Országos lefedettség • Biztonságos megoldás • Korrekt árak</div>
       <div class="small" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
-        <span>Telefon: <a href="tel:+36300123690">+36 30 012 3690</a></span>
+        <span data-i18n="footer_phone_label">Telefon:</span>
+        <a class="phone-link" href="tel:+36300123690" data-i18n="footer_phone_value">+36 30 012 3690</a>
         <span>•</span>
         <span>Email: <a href="mailto:buki.automentes@gmail.com">buki.automentes@gmail.com</a></span>
         <span class="social">
@@ -159,7 +162,280 @@
         </span>
       </div>
     </div>
-    <div class="container small" style="margin-top:8px;">© Buki Autómentés 0–24. Minden jog fenntartva.</div>
+    <div class="container small" style="margin-top:8px;" data-i18n="copyright">© Buki Autómentés 0–24. Minden jog fenntartva.</div>
   </footer>
+
+  <!-- Fordítások + logika -->
+  <script>
+    const PHONES = {
+      main: "+36 30 012 3690",   // HU + EN
+      intl: "+36 30 685 1070"    // UK/UA, RU, CS, RO, SK
+    };
+
+    const I18N = {
+      hu: {
+        meta_title:"Buki Autómentés 0-24 – Gyors segítség, bárhol, bármikor",
+        meta_desc:"Autómentés 0-24, országos lefedettséggel. Hívj most: +36 30 012 3690.",
+        brand:"Buki Autómentés 0-24",
+        language:"Nyelv",
+        call_btn:"Hívás: " + PHONES.main,
+        email_btn:"Email",
+        badge:"⚡ Autómentés ÉJJEL–NAPPAL — Országszerte",
+        h1:"GYORS SEGÍTSÉG,<br/>BÁRHOL, BÁRMIKOR",
+        sub:"Gyors, biztonságos, korrekt. A Buki Autómentés 0–24 a gyorsaság, a biztonság és a tisztességes ár garanciája.",
+        pill_1:"Országos lefedettség",
+        pill_2:"Biztonságos megoldás",
+        pill_3:"Korrekt árak",
+        cta_primary:"Most hívj: " + PHONES.main,
+        cta_email:"Email: buki.automentes@gmail.com",
+        why_title:"Miért minket hívj?",
+        why_1_t:"⏱️ Villámgyors kiszállás", why_1_d:"Éjjel-nappal elérhetők vagyunk, a legtöbb esetben azonnal indulunk.",
+        why_2_t:"🛠️ Szakszerű megoldás",   why_2_d:"Modern eszközök, tapasztalt sofőrök és biztosítással fedezett munka.",
+        why_3_t:"💬 Korrekt kommunikáció", why_3_d:"Előre egyeztetett, tisztességes árak – nincsenek rejtett költségek.",
+        why_4_t:"🚚 Szállítás bárhová",    why_4_d:"Autó, kisteher, veterán – országon belül és határ közelében is.",
+        why_5_t:"🤝 Segítőkész hozzáállás",why_5_d:"Bajban minden perc számít. Emberközeli, nyugodt ügyintézés.",
+        why_6_t:"📞 Azonnali kapcsolat",   why_6_d:"Telefonon felmérjük a helyzetet és a legrövidebb megoldást adjuk.",
+        about_title:"Rólunk röviden",
+        about_1:"„Ha autómentésre van szükséged, számíthatsz ránk éjjel-nappal, bárhol az országban.”",
+        about_2:"Fiatalos, lendületes csapat vagyunk: okos útvonaltervezéssel, korszerű felszereléssel és higgadt kommunikációval dolgozunk.",
+        gallery_title:"Galéria – munkáinkból",
+        footer_line:"Buki Autómentés 0-24 • Országos lefedettség • Biztonságos megoldás • Korrekt árak",
+        footer_phone_label:"Telefon:",
+        footer_phone_value: PHONES.main,
+        copyright:"© Buki Autómentés 0–24. Minden jog fenntartva."
+      },
+      en: {
+        meta_title:"Buki Roadside Assistance 24/7 – Fast help, anytime",
+        meta_desc:"24/7 roadside assistance across Hungary. Call now: +36 30 012 3690.",
+        brand:"Buki Roadside Assistance 24/7",
+        language:"Language",
+        call_btn:"Call: " + PHONES.main,
+        email_btn:"Email",
+        badge:"⚡ 24/7 Roadside Assistance — Nationwide",
+        h1:"FAST HELP,<br/>ANYWHERE, ANYTIME",
+        sub:"Fast, safe, fair. Buki 24/7 is your guarantee for speed, safety and honest pricing.",
+        pill_1:"Nationwide coverage", pill_2:"Safe solutions", pill_3:"Fair pricing",
+        cta_primary:"Call now: " + PHONES.main, cta_email:"Email: buki.automentes@gmail.com",
+        why_title:"Why choose us?",
+        why_1_t:"⏱️ Rapid dispatch", why_1_d:"Available day and night, we usually depart immediately.",
+        why_2_t:"🛠️ Professional work", why_2_d:"Modern gear, experienced drivers, insured service.",
+        why_3_t:"💬 Clear communication", why_3_d:"Upfront, honest pricing. No hidden fees.",
+        why_4_t:"🚚 Transport anywhere", why_4_d:"Cars, vans, classics — nationwide and border areas.",
+        why_5_t:"🤝 Helpful attitude", why_5_d:"Every minute counts. Calm, human support.",
+        why_6_t:"📞 Instant contact", why_6_d:"We assess by phone and give the fastest solution.",
+        about_title:"About us",
+        about_1:"If you need roadside assistance, you can count on us 24/7 anywhere in Hungary.",
+        about_2:"Young, energetic team with smart routing, modern equipment and calm communication.",
+        gallery_title:"Gallery — our work",
+        footer_line:"Buki 24/7 • Nationwide • Safe solutions • Fair pricing",
+        footer_phone_label:"Phone:",
+        footer_phone_value: PHONES.main,
+        copyright:"© Buki 24/7. All rights reserved."
+      },
+      uk: { // Ukrainian
+        meta_title:"Buki Допомога на дорозі 24/7 – Швидко та надійно",
+        meta_desc:"Евакуатор 24/7 по всій Угорщині. Дзвоніть: +36 30 685 1070.",
+        brand:"Buki Допомога 24/7",
+        language:"Мова",
+        call_btn:"Дзвоніть: " + PHONES.intl,
+        email_btn:"Email",
+        badge:"⚡ Допомога 24/7 — по всій країні",
+        h1:"ШВИДКА ДОПОМОГА,<br/>ДЕ БИ ВИ НЕ БУЛИ",
+        sub:"Швидко, безпечно, чесно. Ми дбаємо про ваш спокій у складні моменти.",
+        pill_1:"Покриття по всій країні", pill_2:"Безпечні рішення", pill_3:"Чесні ціни",
+        cta_primary:"Дзвоніть зараз: " + PHONES.intl, cta_email:"Email: buki.automentes@gmail.com",
+        why_title:"Чому ми?",
+        why_1_t:"⏱️ Швидкий виїзд", why_1_d:"Працюємо цілодобово, виїжджаємо негайно.",
+        why_2_t:"🛠️ Професійно",   why_2_d:"Сучасне обладнання та досвідчені водії.",
+        why_3_t:"💬 Чесна комунікація", why_3_d:"Прозорі ціни без прихованих платежів.",
+        why_4_t:"🚚 Перевезення будь-куди", why_4_d:"Легкові, мікроавто, класика.",
+        why_5_t:"🤝 Допомога з повагою", why_5_d:"Кожна хвилина важлива. Спокійна підтримка.",
+        why_6_t:"📞 Миттєвий контакт", why_6_d:"Оцінюємо ситуацію по телефону.",
+        about_title:"Про нас",
+        about_1:"Працюємо 24/7 по всій Угорщині.",
+        about_2:"Молода команда, сучасна техніка, спокійне спілкування.",
+        gallery_title:"Галерея — наші роботи",
+        footer_line:"Buki 24/7 • По всій країні • Безпечно • Чесно",
+        footer_phone_label:"Телефон:",
+        footer_phone_value: PHONES.intl,
+        copyright:"© Buki 24/7. Усі права захищені."
+      },
+      ru: { // Russian
+        meta_title:"Buki Помощь на дороге 24/7 – Быстро и надёжно",
+        meta_desc:"Эвакуатор 24/7 по всей Венгрии. Звоните: +36 30 685 1070.",
+        brand:"Buki Помощь 24/7",
+        language:"Язык",
+        call_btn:"Звоните: " + PHONES.intl,
+        email_btn:"Email",
+        badge:"⚡ Помощь 24/7 — по всей стране",
+        h1:"БЫСТРАЯ ПОМОЩЬ,<br/>ГДЕ БЫ ВЫ НИ БЫЛИ",
+        sub:"Быстро, безопасно, честно. Мы рядом в сложных ситуациях.",
+        pill_1:"Покрытие по всей стране", pill_2:"Безопасные решения", pill_3:"Честные цены",
+        cta_primary:"Звоните сейчас: " + PHONES.intl, cta_email:"Email: buki.automentes@gmail.com",
+        why_title:"Почему мы?",
+        why_1_t:"⏱️ Быстрый выезд", why_1_d:"Работаем круглосуточно, выезжаем сразу.",
+        why_2_t:"🛠️ Профессионально", why_2_d:"Современное оборудование и опытные водители.",
+        why_3_t:"💬 Честная коммуникация", why_3_d:"Прозрачные цены без скрытых платежей.",
+        why_4_t:"🚚 Перевозка куда угодно", why_4_d:"Авто, фургоны, классика.",
+        why_5_t:"🤝 Дружелюбный подход", why_5_d:"Каждая минута важна. Спокойная поддержка.",
+        why_6_t:"📞 Мгновенная связь", why_6_d:"Оценим ситуацию по телефону.",
+        about_title:"О нас",
+        about_1:"Работаем 24/7 по всей Венгрии.",
+        about_2:"Молодая команда, современная техника и спокойное общение.",
+        gallery_title:"Галерея — наши работы",
+        footer_line:"Buki 24/7 • По всей стране • Безопасно • Честно",
+        footer_phone_label:"Телефон:",
+        footer_phone_value: PHONES.intl,
+        copyright:"© Buki 24/7. Все права защищены."
+      },
+      cs: { // Czech
+        meta_title:"Buki Asistence 24/7 – Rychlá pomoc kdykoli",
+        meta_desc:"Odtah a pomoc 24/7 po celém Maďarsku. Volejte: +36 30 685 1070.",
+        brand:"Buki Asistence 24/7",
+        language:"Jazyk",
+        call_btn:"Volat: " + PHONES.intl, email_btn:"Email",
+        badge:"⚡ Silniční asistence 24/7 — celostátně",
+        h1:"RYCHLÁ POMOC,<br/>KDYKOLI A KDEKOLI",
+        sub:"Rychle, bezpečně, férově. Jsme tu pro vás v těžkých chvílích.",
+        pill_1:"Celostátní pokrytí", pill_2:"Bezpečná řešení", pill_3:"Férové ceny",
+        cta_primary:"Zavolejte nyní: " + PHONES.intl, cta_email:"Email: buki.automentes@gmail.com",
+        why_title:"Proč my?",
+        why_1_t:"⏱️ Okamžitý výjezd", why_1_d:"24/7 dostupnost, často vyrážíme ihned.",
+        why_2_t:"🛠️ Profesionální služby", why_2_d:"Moderní vybavení a zkušení řidiči.",
+        why_3_t:"💬 Férová komunikace", why_3_d:"Transparentní ceny, žádné skryté poplatky.",
+        why_4_t:"🚚 Převoz kamkoliv", why_4_d:"Osobní vozy, dodávky i veterány.",
+        why_5_t:"🤝 Vstřícný přístup", why_5_d:"Každá minuta se počítá. Klidná podpora.",
+        why_6_t:"📞 Okamžitý kontakt", why_6_d:"Situaci zhodnotíme po telefonu.",
+        about_title:"Stručně o nás",
+        about_1:"Pomoc 24/7 po celém Maďarsku.",
+        about_2:"Mladý tým, moderní technika a klidná komunikace.",
+        gallery_title:"Galerie — naše práce",
+        footer_line:"Buki 24/7 • Celostátní • Bezpečně • Férově",
+        footer_phone_label:"Telefon:",
+        footer_phone_value: PHONES.intl,
+        copyright:"© Buki 24/7. Všechna práva vyhrazena."
+      },
+      ro: { // Romanian
+        meta_title:"Buki Asistență Rutieră 24/7 – Rapid și sigur",
+        meta_desc:"Tractare 24/7 în toată Ungaria. Sună acum: +36 30 685 1070.",
+        brand:"Buki Asistență 24/7",
+        language:"Limbă",
+        call_btn:"Sună: " + PHONES.intl, email_btn:"Email",
+        badge:"⚡ Asistență 24/7 — la nivel național",
+        h1:"AJUTOR RAPID,<br/>ORIUNDE, ORICÂND",
+        sub:"Rapid, sigur, corect. Suntem alături de tine când ai nevoie.",
+        pill_1:"Acoperire națională", pill_2:"Soluții sigure", pill_3:"Prețuri corecte",
+        cta_primary:"Sună acum: " + PHONES.intl, cta_email:"Email: buki.automentes@gmail.com",
+        why_title:"De ce noi?",
+        why_1_t:"⏱️ Intervenție rapidă", why_1_d:"Disponibili 24/7, plecăm imediat.",
+        why_2_t:"🛠️ Profesioniști", why_2_d:"Echipamente moderne și șoferi experimentați.",
+        why_3_t:"💬 Comunicare clară", why_3_d:"Prețuri transparente, fără costuri ascunse.",
+        why_4_t:"🚚 Transport oriunde", why_4_d:"Mașini, dube, clasice.",
+        why_5_t:"🤝 Atitudine prietenoasă", why_5_d:"Fiecare minut contează. Sprijin calm.",
+        why_6_t:"📞 Contact instant", why_6_d:"Evaluăm telefonic și oferim soluția rapidă.",
+        about_title:"Despre noi",
+        about_1:"Lucrăm 24/7 în toată Ungaria.",
+        about_2:"Echipă tânără, echipamente moderne, comunicare calmă.",
+        gallery_title:"Galerie — lucrările noastre",
+        footer_line:"Buki 24/7 • Național • Sigur • Corect",
+        footer_phone_label:"Telefon:",
+        footer_phone_value: PHONES.intl,
+        copyright:"© Buki 24/7. Toate drepturile rezervate."
+      },
+      sk: { // Slovak
+        meta_title:"Buki Asistencia 24/7 – Rýchla pomoc",
+        meta_desc:"Odtahová služba 24/7 po celom Maďarsku. Volajte: +36 30 685 1070.",
+        brand:"Buki Asistencia 24/7",
+        language:"Jazyk",
+        call_btn:"Volajte: " + PHONES.intl, email_btn:"Email",
+        badge:"⚡ Cestná asistencia 24/7 — celoštátne",
+        h1:"RÝCHLA POMOC,<br/>KDEKOĽVEK A KEDYKOĽVEK",
+        sub:"Rýchlo, bezpečne, férovo. Sme pri vás, keď to najviac treba.",
+        pill_1:"Celoštátne pokrytie", pill_2:"Bezpečné riešenia", pill_3:"Férové ceny",
+        cta_primary:"Volajte teraz: " + PHONES.intl, cta_email:"Email: buki.automentes@gmail.com",
+        why_title:"Prečo my?",
+        why_1_t:"⏱️ Okamžitý výjazd", why_1_d:"Dostupní 24/7, odchádzame hneď.",
+        why_2_t:"🛠️ Profesionálne", why_2_d:"Moderná technika a skúsení vodiči.",
+        why_3_t:"💬 Férová komunikácia", why_3_d:"Transparentné ceny bez skrytých poplatkov.",
+        why_4_t:"🚚 Prevoz kamkoľvek", why_4_d:"Osobné autá, dodávky, veterány.",
+        why_5_t:"🤝 Ústretový prístup", why_5_d:"Každá minúta sa počíta. Pokojná podpora.",
+        why_6_t:"📞 Okamžitý kontakt", why_6_d:"Situáciu zhodnotíme telefonicky.",
+        about_title:"O nás v skratke",
+        about_1:"Pomoc 24/7 po celom Maďarsku.",
+        about_2:"Mladý tím, moderná výbava a pokojná komunikácia.",
+        gallery_title:"Galéria — naša práca",
+        footer_line:"Buki 24/7 • Celoštátne • Bezpečne • Féromvo",
+        footer_phone_label:"Telefón:",
+        footer_phone_value: PHONES.intl,
+        copyright:"© Buki 24/7. Všetky práva vyhradené."
+      }
+    };
+
+    function normLang(l) {
+      if (!l) return 'hu';
+      l = l.toLowerCase();
+      if (l.startsWith('zh')) return 'en';
+      return l.split('-')[0]; // en-US -> en
+    }
+
+    function phoneFor(lang){
+      return (lang==='hu' || lang==='en') ? PHONES.main : PHONES.intl;
+    }
+
+    function applyI18n(lang){
+      const dict = I18N[lang] || I18N.hu;
+      // text nodes
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]!==undefined) el.innerHTML = dict[key];
+      });
+      // attribute bindings (e.g. meta description)
+      document.querySelectorAll('[data-i18n-attr]').forEach(el=>{
+        const parts = el.getAttribute('data-i18n-attr').split(':'); // attr:key
+        const attr = parts[0], key = parts[1];
+        if (dict[key]!==undefined) el.setAttribute(attr, dict[key]);
+      });
+      // document title
+      if (dict.meta_title) document.title = dict.meta_title;
+      // html lang
+      document.documentElement.setAttribute('lang', lang);
+
+      // phone links
+      const phone = phoneFor(lang);
+      document.querySelectorAll('.phone-link').forEach(a=>{
+        a.setAttribute('href', 'tel:' + phone.replace(/\s+/g,''));
+        // ha a link szövegében szerepel a szám, cseréljük
+        const t = a.textContent;
+        a.textContent = t.replace(/\+?\d[\d\s\-()]+$/g, phone); // végén lévő számra
+      });
+      // footer phone explicit
+      const fp = document.querySelector('[data-i18n="footer_phone_value"]');
+      if (fp) fp.textContent = phone;
+
+      // nyelvválasztó státusz
+      const sel = document.getElementById('langSelect');
+      if (sel && sel.value !== lang) sel.value = lang;
+      // persist
+      try{ localStorage.setItem('buki_lang', lang); }catch(e){}
+    }
+
+    // init language: URL ?lang=xx -> localStorage -> navigator.language -> hu
+    (function initLang(){
+      const url = new URL(window.location.href);
+      const q = normLang(url.searchParams.get('lang'));
+      const stored = normLang(localStorage.getItem('buki_lang'));
+      const nav = normLang(navigator.language || navigator.userLanguage);
+      const lang = I18N[q] ? q : (I18N[stored] ? stored : (I18N[nav] ? nav : 'hu'));
+      applyI18n(lang);
+    })();
+
+    // language change handler
+    document.getElementById('langSelect').addEventListener('change', (e)=>{
+      applyI18n(e.target.value);
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', e.target.value);
+      history.replaceState(null,'',url.toString());
+    });
+  </script>
 </body>
 </html>
