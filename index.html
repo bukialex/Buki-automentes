@@ -44,7 +44,14 @@
     .card h3{margin:0 0 8px;font-size:18px}
     .muted{color:var(--muted)}
     .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-    .gallery img{width:100%;height:220px;object-fit:cover;border-radius:12px;border:1px solid var(--stroke)}
+    .gallery img {
+  width: 100%;
+  height: auto;         /* a magasság igazodik az arányhoz */
+  object-fit: contain;  /* a teljes kép látszik, nem vágja */
+  display: block;
+  border: 1px solid var(--stroke);
+  border-radius: 12px;
+  background: #0d0d0d;  /* ha a kép nem tölti ki teljesen a teret, fekete háttér */}
     footer{border-top:1px solid var(--stroke);background:#0d0d0d;padding:32px 0}
     .footer-grid{display:grid;grid-template-columns:1fr;align-items:center;gap:12px}
     .small{font-size:14px;color:var(--muted)}
