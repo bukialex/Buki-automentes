@@ -4,7 +4,6 @@
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), camera=(), microphone=(), autoplay=(), payment=()
-
   Content-Security-Policy: default-src 'self' https: data: blob:;
     script-src  'self' 'unsafe-inline' 'unsafe-eval' https:;
     style-src   'self' 'unsafe-inline' https:;
