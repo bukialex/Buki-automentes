@@ -58,6 +58,36 @@
     .footer-grid{display:grid;grid-template-columns:1fr;align-items:center;gap:12px}
     .small{font-size:14px;color:var(--muted)}
     @media(min-width:680px){.footer-grid{grid-template-columns:auto 1fr auto}}
+
+    /* --- Reviews blokk stílusok (fekete–sárga témához igazítva) --- */
+    #reviews h2{font-size:28px;margin:0 0 16px}
+    .g-summary{display:flex;align-items:center;gap:12px;border:1px solid var(--stroke);background:#111;border-radius:12px;padding:12px}
+    .g-logo{width:24px;height:24px}
+    .g-score{font-weight:800;font-size:20px}
+    .g-count{color:var(--muted);font-size:14px}
+    .g-link{margin-left:auto;border:1px solid var(--accent);background:var(--accent);color:#000;padding:8px 12px;border-radius:999px;font-weight:700}
+
+    .g-carousel{position:relative;margin-top:14px}
+    .g-track{
+      display:grid;grid-auto-flow:column;grid-auto-columns:100%;
+      overflow:hidden;scroll-behavior:smooth;border-radius:12px
+    }
+    .g-card{background:var(--card);border:1px solid var(--stroke);border-radius:12px;padding:16px;margin:0 2px}
+    .g-author{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+    .g-avatar{width:40px;height:40px;border-radius:50%;background:#222;object-fit:cover}
+    .g-name{font-weight:700}
+    .g-date{color:var(--muted);font-size:12px}
+    .g-stars{color:var(--accent);margin:4px 0}
+    .g-text{color:var(--ink);font-size:15px;line-height:1.55;white-space:pre-wrap}
+
+    .g-nav{position:absolute;top:50%;transform:translateY(-50%);background:#141414;border:1px solid var(--stroke);color:var(--ink);width:36px;height:36px;border-radius:999px}
+    #g-prev{left:6px} #g-next{right:6px}
+    .g-dots{display:flex;gap:6px;justify-content:center;margin-top:8px}
+    .g-dot{width:8px;height:8px;border-radius:50%;background:#444;cursor:pointer}
+    .g-dot.active{background:var(--accent)}
+
+    /* 2 kártya szélesebb képernyőn */
+    @media(min-width:720px){ .g-track{grid-auto-columns:50%} }
   </style>
 </head>
 <body>
@@ -141,6 +171,33 @@
       <img src="gallery3.jpg" alt="Gallery 3">
       <img src="gallery4.jpg" alt="Gallery 4">
     </div>
+  </section>
+
+  <!-- REVIEWS: Google értékelés slider -->
+  <section class="container" id="reviews">
+    <h2>Elégedett ügyfeleink véleményei</h2>
+
+    <!-- Google összegző sáv -->
+    <div class="g-summary">
+      <img class="g-logo" src="https://www.gstatic.com/images/branding/product/1x/google_g_24dp.png" alt="Google" />
+      <div>
+        <div class="g-score"><span id="g-rating">5.0</span> ★</div>
+        <div class="g-count"><span id="g-count">0</span> vélemény alapján a Google-on</div>
+      </div>
+      <a id="g-link" class="g-link" href="#" target="_blank" rel="noopener">Profil megnyitása</a>
+    </div>
+
+    <!-- Slider -->
+    <div class="g-carousel" aria-roledescription="carousel">
+      <button class="g-nav" id="g-prev" aria-label="Előző értékelés">‹</button>
+      <div class="g-track" id="g-track"></div>
+      <button class="g-nav" id="g-next" aria-label="Következő értékelés">›</button>
+    </div>
+    <div class="g-dots" id="g-dots" aria-label="Diaválasztó"></div>
+
+    <p class="small muted" style="margin-top:10px">
+      Forrás: Google értékelések. A megjelenítés a Google irányelvei szerint történik.
+    </p>
   </section>
 
   <footer>
@@ -404,9 +461,8 @@
       const phone = phoneFor(lang);
       document.querySelectorAll('.phone-link').forEach(a=>{
         a.setAttribute('href', 'tel:' + phone.replace(/\s+/g,''));
-        // ha a link szövegében szerepel a szám, cseréljük
         const t = a.textContent;
-        a.textContent = t.replace(/\+?\d[\d\s\-()]+$/g, phone); // végén lévő számra
+        a.textContent = t.replace(/\+?\d[\d\s\-()]+$/g, phone);
       });
       // footer phone explicit
       const fp = document.querySelector('[data-i18n="footer_phone_value"]');
@@ -436,6 +492,110 @@
       url.searchParams.set('lang', e.target.value);
       history.replaceState(null,'',url.toString());
     });
+
+    /* ===== Google Reviews slider logika ===== */
+    const GOOGLE_PLACE_ID = "ChIJOWPVHcHjQUcRtQorV6RqqwY";
+    const AUTO_PLAY_MS = 8000;
+    const MAX_REVIEWS  = 20;
+    let currentSlide = 0, autoTimer = null;
+
+    function initReviews(){
+      const svc = new google.maps.places.PlacesService(document.createElement('div'));
+      svc.getDetails({
+        placeId: GOOGLE_PLACE_ID,
+        fields: ['name','rating','user_ratings_total','url','reviews']
+      }, (place, status) => {
+        const track = document.getElementById('g-track');
+        if (status !== google.maps.places.PlacesServiceStatus.OK || !place){
+          if (track) track.innerHTML =
+            '<div class="g-card"><div class="g-text muted">Jelenleg nem elérhetők az értékelések.</div></div>';
+          return;
+        }
+
+        // Összegző sáv
+        elt('#g-rating').textContent = (place.rating||0).toFixed(1);
+        elt('#g-count').textContent  = place.user_ratings_total || 0;
+        elt('#g-link').href          = place.url || '#';
+
+        // Értékelések render
+        const reviews = (place.reviews || []).slice(0, MAX_REVIEWS);
+        const dots  = elt('#g-dots');
+
+        if (!reviews.length){
+          track.innerHTML = '<div class="g-card"><div class="g-text muted">Még nincs megjeleníthető értékelés.</div></div>';
+          return;
+        }
+
+        reviews.forEach((r, idx) => {
+          const card = document.createElement('div');
+          card.className = 'g-card';
+          card.setAttribute('role','group');
+          card.setAttribute('aria-roledescription','slide');
+          card.setAttribute('aria-label',`Értékelés ${idx+1}/${reviews.length}`);
+          card.innerHTML = `
+            <div class="g-author">
+              <img class="g-avatar" src="${safe(r.profile_photo_url)}" alt="${esc(r.author_name||'Google user')}">
+              <div>
+                <div class="g-name">${esc(r.author_name || 'Google user')}</div>
+                <div class="g-date">${formatDate(r.time)}</div>
+              </div>
+              ${r.author_url ? `<a href="${safe(r.author_url)}" target="_blank" rel="noopener" style="margin-left:auto">
+                <img src="https://www.gstatic.com/images/branding/product/1x/google_g_24dp.png" alt="Google" width="20" height="20">
+              </a>` : ''}
+            </div>
+            <div class="g-stars">${'★'.repeat(r.rating||5)}</div>
+            <div class="g-text">${esc(r.text || '')}</div>
+          `;
+          track.appendChild(card);
+
+          const dot = document.createElement('div');
+          dot.className = 'g-dot' + (idx===0?' active':'');
+          dot.addEventListener('click', ()=>goTo(idx));
+          dots.appendChild(dot);
+        });
+
+        // Navigáció + autoplay
+        elt('#g-prev').addEventListener('click', ()=>goTo(currentSlide-1));
+        elt('#g-next').addEventListener('click', ()=>goTo(currentSlide+1));
+        const carousel = document.querySelector('.g-carousel');
+        carousel.addEventListener('mouseenter', stopAuto);
+        carousel.addEventListener('mouseleave', startAuto);
+
+        startAuto();
+        update(); // első pozicionálás
+        window.addEventListener('resize', ()=>update(false));
+      });
+    }
+
+    function startAuto(){ stopAuto(); autoTimer = setInterval(()=>goTo(currentSlide+1), AUTO_PLAY_MS); }
+    function stopAuto(){ if (autoTimer){ clearInterval(autoTimer); autoTimer=null; } }
+
+    function goTo(i){
+      const total = elt('#g-track').children.length;
+      currentSlide = (i+total)%total;
+      update();
+    }
+
+    function update(smooth=true){
+      const track = elt('#g-track');
+      if (!track) return;
+      const dots  = document.querySelectorAll('.g-dot');
+      const width = track.clientWidth;
+      track.scrollTo({left: currentSlide*width, behavior: smooth?'smooth':'auto'});
+      dots.forEach((d,idx)=>d.classList.toggle('active', idx===currentSlide));
+    }
+
+    /* helpers */
+    function elt(sel){ return document.querySelector(sel); }
+    function formatDate(unixSeconds){
+      try{ return new Date(unixSeconds*1000).toLocaleDateString(undefined,{year:'numeric',month:'2-digit',day:'2-digit'}); }
+      catch(e){ return ''; }
+    }
+    function esc(t){ return (t||'').replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m])); }
+    function safe(u){ return u ? String(u) : ''; }
   </script>
+
+  <!-- Google Maps JS API – CSERÉLD ki a kulcsot a sajátodra -->
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNU0EiJhyhuiXh6NTTwhByV-Pu6bXcRss&libraries=places&callback=initReviews"></script>
 </body>
 </html>
