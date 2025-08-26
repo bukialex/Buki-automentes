@@ -10,14 +10,18 @@
       --bg:#0b0b0b; --card:#121212; --ink:#f4f4f4; --muted:#b3b3b3;
       --accent:#f7b500; --stroke:#1f1f1f;
     }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif; scroll-behavior:smooth;}
+    *{box-sizing:border-box; scroll-behavior:smooth}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif}
     a{color:inherit;text-decoration:none}
     .container{max-width:1100px;margin:0 auto;padding:24px}
 
-    header{display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid var(--stroke);flex-wrap:wrap}
+    header{display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid var(--stroke)}
     header img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--accent)}
     .brand{font-weight:800;font-size:20px;letter-spacing:.3px}
+    nav{margin-left:40px}
+    nav a{margin:0 10px;font-size:14px;color:var(--muted)}
+    nav a:hover{color:var(--accent)}
+
     .spacer{flex:1}
     .lang{display:flex;align-items:center;gap:8px}
     .lang label{font-size:12px;color:var(--muted)}
@@ -29,10 +33,6 @@
     .social{display:flex;gap:10px}
     .social a{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:999px;border:1px solid var(--stroke);background:#141414}
     .social svg{width:18px;height:18px;stroke:var(--ink)}
-
-    nav.nav{display:flex;gap:20px;flex-wrap:wrap}
-    nav.nav a{font-size:14px;color:var(--muted);transition:color .2s}
-    nav.nav a:hover{color:var(--accent)}
 
     .hero{background:linear-gradient(180deg,#0b0b0b 0%,#121212 100%);border-bottom:1px solid var(--stroke)}
     .hero-inner{display:grid;gap:12px;padding:32px 0;text-align:center}
@@ -69,15 +69,18 @@
     <header>
       <img src="https://polite-horse-7e2d22.netlify.app/assets/logo_round.png" alt="Buki Autómentés 0-24">
       <div class="brand" data-i18n="brand">Buki Autómentés 0-24</div>
-      <div class="spacer"></div>
-
+      
       <!-- Navigáció -->
-      <nav class="nav">
+      <nav>
+        <a href="#home">Főoldal</a>
+        <a href="#why">Miért minket?</a>
         <a href="#about">Rólunk</a>
         <a href="#gallery">Galéria</a>
         <a href="#faq">GYIK</a>
         <a href="#contact">Kapcsolat</a>
       </nav>
+
+      <div class="spacer"></div>
 
       <!-- Nyelvválasztó -->
       <div class="lang">
@@ -92,68 +95,67 @@
           <option value="sk">SK</option>
         </select>
       </div>
+
+      <div class="cta">
+        <a class="btn phone-link" href="tel:+36300123690" data-i18n="call_btn">Hívás: +36 30 012 3690</a>
+        <a class="btn ghost" href="mailto:buki.automentes@gmail.com" data-i18n="email_btn">Email</a>
+      </div>
     </header>
   </div>
 
-  <!-- Hero -->
-  <div class="hero">
+  <!-- HERO -->
+  <div id="home" class="hero">
     <div class="container hero-inner">
-      <div class="badge">⚡ Autómentés ÉJJEL–NAPPAL — Országszerte</div>
-      <h1>GYORS SEGÍTSÉG,<br/>BÁRHOL, BÁRMIKOR</h1>
-      <p class="sub">Gyors, biztonságos, korrekt. A Buki Autómentés 0–24 a gyorsaság, a biztonság és a tisztességes ár garanciája.</p>
+      <div class="badge" data-i18n="badge">⚡ Autómentés ÉJJEL–NAPPAL — Országszerte</div>
+      <h1 data-i18n="h1">GYORS SEGÍTSÉG,<br/>BÁRHOL, BÁRMIKOR</h1>
+      <p class="sub" data-i18n="sub">Gyors, biztonságos, korrekt...</p>
     </div>
   </div>
 
-  <!-- About -->
-  <section class="container" id="about">
-    <h2>Rólunk röviden</h2>
-    <p>„Ha autómentésre van szükséged, számíthatsz ránk éjjel-nappal, bárhol az országban.”</p>
-    <p>Fiatalos, lendületes csapat vagyunk: okos útvonaltervezéssel, korszerű felszereléssel és higgadt kommunikációval dolgozunk.</p>
+  <!-- Miért minket -->
+  <section id="why" class="container">
+    <h2 data-i18n="why_title">Miért minket hívj?</h2>
+    ...
+  </section>
+
+  <!-- Rólunk -->
+  <section id="about" class="container">
+    <h2 data-i18n="about_title">Rólunk röviden</h2>
+    ...
   </section>
 
   <!-- Galéria -->
-  <section class="container" id="gallery">
-    <h2>Galéria – munkáinkból</h2>
-    <div class="gallery">
-      <img src="gallery1.jpg" alt="Gallery 1">
-      <img src="gallery2.jpg" alt="Gallery 2">
-      <img src="gallery3.jpg" alt="Gallery 3">
-      <img src="gallery4.jpg" alt="Gallery 4">
-    </div>
+  <section id="gallery" class="container">
+    <h2 data-i18n="gallery_title">Galéria – munkáinkból</h2>
+    ...
   </section>
 
-  <!-- GYIK (ahogy Te átírtad) -->
-  <section class="container" id="faq">
-    <h2>Gyakran ismételt kérdések</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>⏱️ Mennyi idő alatt érkeztek ki?</h3>
-        <p class="muted">Általában 20-40 percen belül a helyszínen vagyunk, forgalomtól függően.</p>
-      </div>
-      <div class="card">
-        <h3>💰 Mennyibe kerül az autómentés?</h3>
-        <p class="muted">Az ár függ a távolságtól és a jármű típusától. Korrekt, előre egyeztetett díjakat adunk.</p>
-      </div>
-      <div class="card">
-        <h3>🌍 Külföldről is hívhatlak?</h3>
-        <p class="muted">Igen, nemcsak Magyarországon, hanem a határ közelében is mentünk.</p>
-      </div>
-      <div class="card">
-        <h3>🚗 Csak autót szállítotok?</h3>
-        <p class="muted">Nem, motort, kisteherautót és veterán járműveket is.</p>
-      </div>
+  <!-- GYIK -->
+  <section id="faq" class="container">
+    <h2>GYIK – Gyakran Ismételt Kérdések</h2>
+    <div class="card">
+      <h3>Mennyi idő alatt értek ki?</h3>
+      <p class="muted">Átlagosan 30-60 perc alatt...</p>
+    </div>
+    <div class="card">
+      <h3>Milyen járműveket mentetek?</h3>
+      <p class="muted">Személyautó, motorkerékpár, veterán...</p>
     </div>
   </section>
 
   <!-- Kapcsolat -->
-  <section class="container" id="contact">
+  <section id="contact" class="container">
     <h2>Kapcsolat</h2>
-    <p>📞 Telefon: <a href="tel:+36300123690">+36 30 012 3690</a></p>
-    <p>📧 Email: <a href="mailto:buki.automentes@gmail.com">buki.automentes@gmail.com</a></p>
+    <p>Telefon: <a href="tel:+36300123690">+36 30 012 3690</a></p>
+    <p>Email: <a href="mailto:buki.automentes@gmail.com">buki.automentes@gmail.com</a></p>
+    <p>Cím: 2030 Érd, Pintyőke utca 54.</p>
   </section>
 
   <footer>
     <div class="container small">© Buki Autómentés 0–24. Minden jog fenntartva.</div>
   </footer>
+</body>
+</html>
+
 </body>
 </html>
