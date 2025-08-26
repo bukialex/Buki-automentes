@@ -12,6 +12,7 @@
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif}
+    html{scroll-behavior:smooth}
     a{color:inherit;text-decoration:none}
     .container{max-width:1100px;margin:0 auto;padding:24px}
 
@@ -19,6 +20,13 @@
     header img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--accent)}
     .brand{font-weight:800;font-size:20px;letter-spacing:.3px}
     .spacer{flex:1}
+
+    /* Felső menü – belső linkek */
+    .menu{display:none;gap:14px;margin-right:8px}
+    .menu a{padding:8px 10px;border:1px solid var(--stroke);border-radius:10px;background:#141414;font-weight:600;font-size:14px}
+    .menu a:hover{border-color:var(--accent)}
+    @media(min-width:820px){ .menu{display:flex} }
+
     .lang{display:flex;align-items:center;gap:8px}
     .lang label{font-size:12px;color:var(--muted)}
     .lang select{background:#141414;color:var(--ink);border:1px solid var(--stroke);padding:6px 10px;border-radius:10px}
@@ -54,6 +62,12 @@
       border:1px solid var(--stroke); border-radius:12px; background:#0d0d0d;
     }
 
+    /* Kapcsolat blokk */
+    .contact-grid{display:grid;grid-template-columns:1fr;gap:16px}
+    .contact-card{background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:18px}
+    .contact-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+    @media(min-width:720px){ .contact-grid{grid-template-columns:1.2fr .8fr} }
+
     footer{border-top:1px solid var(--stroke);background:#0d0d0d;padding:32px 0}
     .footer-grid{display:grid;grid-template-columns:1fr;align-items:center;gap:12px}
     .small{font-size:14px;color:var(--muted)}
@@ -66,6 +80,14 @@
       <img src="https://polite-horse-7e2d22.netlify.app/assets/logo_round.png" alt="Buki Autómentés 0-24">
       <div class="brand" data-i18n="brand">Buki Autómentés 0-24</div>
       <div class="spacer"></div>
+
+      <!-- Felső menü – belső linkek -->
+      <nav class="menu" aria-label="Fő menü">
+        <a href="#services">Szolgáltatások</a>
+        <a href="#about">Rólunk</a>
+        <a href="#gallery">Galéria</a>
+        <a href="#contact">Kapcsolat</a>
+      </nav>
 
       <!-- Nyelvválasztó -->
       <div class="lang">
@@ -115,7 +137,8 @@
     </div>
   </div>
 
-  <section class="container">
+  <!-- SZOLGÁLTATÁSOK -->
+  <section class="container" id="services">
     <h2 data-i18n="why_title">Miért minket hívj?</h2>
     <div class="grid">
       <div class="card"><h3 data-i18n="why_1_t">⏱️ Villámgyors kiszállás</h3><p class="muted" data-i18n="why_1_d">Éjjel-nappal elérhetők vagyunk, a legtöbb esetben azonnal indulunk.</p></div>
@@ -127,19 +150,40 @@
     </div>
   </section>
 
-  <section class="container">
+  <!-- RÓLUNK -->
+  <section class="container" id="about">
     <h2 data-i18n="about_title">Rólunk röviden</h2>
     <p class="muted" data-i18n="about_1">„Ha autómentésre van szükséged, számíthatsz ránk éjjel-nappal, bárhol az országban.”</p>
     <p class="muted" data-i18n="about_2">Fiatalos, lendületes csapat vagyunk: okos útvonaltervezéssel, korszerű felszereléssel és higgadt kommunikációval dolgozunk.</p>
   </section>
 
-  <section class="container">
+  <!-- GALÉRIA -->
+  <section class="container" id="gallery">
     <h2 data-i18n="gallery_title">Galéria – munkáinkból</h2>
     <div class="gallery">
       <img src="gallery1.jpg" alt="Gallery 1">
       <img src="gallery2.jpg" alt="Gallery 2">
       <img src="gallery3.jpg" alt="Gallery 3">
       <img src="gallery4.jpg" alt="Gallery 4">
+    </div>
+  </section>
+
+  <!-- KAPCSOLAT -->
+  <section class="container" id="contact">
+    <h2>Kapcsolat</h2>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <p class="muted">Azonnali segítségre van szükség? Hívj minket éjjel-nappal!</p>
+        <div class="contact-actions">
+          <a class="btn phone-link" href="tel:+36300123690">Hívás: +36 30 012 3690</a>
+          <a class="btn ghost" href="mailto:buki.automentes@gmail.com">Email: buki.automentes@gmail.com</a>
+        </div>
+      </div>
+      <div class="contact-card">
+        <p class="muted">Cím: 2030 Érd, Pintyőke utca 54.</p>
+        <a class="btn-outline" target="_blank" rel="noopener"
+           href="https://maps.google.com/?q=2030+Érd,+Pintyőke+utca+54">Útvonalterv megnyitása</a>
+      </div>
     </div>
   </section>
 
