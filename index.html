@@ -248,24 +248,53 @@
     <p class="muted" data-i18n="contact_sub">Írj az űrlapon, vagy hívj minket bármikor!</p>
 
     <!-- Netlify Forms compatible -->
-    <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-      <input type="hidden" name="form-name" value="contact">
-      <p style="display:none"><label>Ne töltsd ki: <input name="bot-field"></label></p>
+<form name="kapcsolat" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="contact-form">
+  <input type="hidden" name="form-name" value="kapcsolat">
+  <p style="display:none">
+    <label>Ne töltsd ki: <input name="bot-field"></label>
+  </p>
 
-      <label data-i18n="form_name">Név</label>
-      <input type="text" name="name" required placeholder="Név">
+  <label>Neved*
+    <input type="text" name="name" required>
+  </label>
 
-      <label data-i18n="form_email">Email</label>
-      <input type="email" name="email" required placeholder="Email">
+  <label>E-mail címed*
+    <input type="email" name="email" required>
+  </label>
 
-      <label data-i18n="form_message">Üzenet</label>
-      <textarea name="message" rows="5" required placeholder="Miben segíthetünk?"></textarea>
+  <label>Telefonszám
+    <input type="tel" name="phone">
+  </label>
 
-      <!-- reCAPTCHA (ha szeretnéd, a Netlify adminban kapcsold be) -->
-      <!-- <div data-netlify-recaptcha="true"></div> -->
+  <label>Üzenet*
+    <textarea name="message" required></textarea>
+  </label>
 
-      <button type="submit" class="btn-primary" data-i18n="form_send">Üzenet küldése</button>
-    </form>
+  <!-- reCAPTCHA blokk -->
+  <div data-netlify-recaptcha="true"></div>
+
+  <button type="submit">Üzenet küldése</button>
+
+  <div id="contact-success" style="display:none;margin-top:10px;color:#3bd16f;">
+    Köszönjük! Az üzeneted beérkezett, hamarosan jelentkezünk.
+  </div>
+  <div id="contact-error" style="display:none;margin-top:10px;color:#ff6464;">
+    Hoppá, valami hiba történt. Próbáld meg újra, vagy hívj telefonon.
+  </div>
+</form>
+
+<script>
+  // Ha Netlify visszahoz ?success=true-vel, mutassuk a sikerüzenetet
+  (function () {
+    const p = new URLSearchParams(location.search);
+    if (p.get('success') === 'true') {
+      document.getElementById('contact-success').style.display = 'block';
+      // görgessünk az űrlaphoz
+      document.getElementById('contact-form').scrollIntoView({behavior:'smooth'});
+    }
+  })();
+</script>
+
 
     <!-- Phone/Email quick -->
     <div style="margin-top:16px">
