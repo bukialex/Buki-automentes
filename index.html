@@ -248,40 +248,41 @@
     <p class="muted" data-i18n="contact_sub">Írj az űrlapon, vagy hívj minket bármikor!</p>
 
     <!-- Netlify Forms compatible -->
-<form name="kapcsolat" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="contact-form">
-  <input type="hidden" name="form-name" value="kapcsolat">
-  <p style="display:none">
-    <label>Ne töltsd ki: <input name="bot-field"></label>
-  </p>
+<section class="container" id="contact">
+  <h2 data-i18n="contact_title">Kapcsolat</h2>
+  <form name="kapcsolat"
+        method="POST"
+        action="/koszonjuk.html"
+        data-netlify="true"
+        netlify-honeypot="bot-field">
+        
+    <input type="hidden" name="form-name" value="kapcsolat">
+    <p style="display:none">
+      <label>Ne töltsd ki: <input name="bot-field"></label>
+    </p>
 
-  <label>Neved*
-    <input type="text" name="name" required>
-  </label>
+    <div class="card">
+      <label for="name">Név</label>
+      <input type="text" id="name" name="name" required>
+    </div>
 
-  <label>E-mail címed*
-    <input type="email" name="email" required>
-  </label>
+    <div class="card">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+    </div>
 
-  <label>Telefonszám
-    <input type="tel" name="phone">
-  </label>
+    <div class="card">
+      <label for="message">Üzenet</label>
+      <textarea id="message" name="message" rows="5" required></textarea>
+    </div>
 
-  <label>Üzenet*
-    <textarea name="message" required></textarea>
-  </label>
+    <!-- reCAPTCHA blokk -->
+    <div data-netlify-recaptcha="true"></div>
 
-  <!-- reCAPTCHA blokk -->
-  <div data-netlify-recaptcha="true"></div>
+    <button type="submit" class="btn-primary">Üzenet küldése</button>
+  </form>
+</section>
 
-  <button type="submit">Üzenet küldése</button>
-
-  <div id="contact-success" style="display:none;margin-top:10px;color:#3bd16f;">
-    Köszönjük! Az üzeneted beérkezett, hamarosan jelentkezünk.
-  </div>
-  <div id="contact-error" style="display:none;margin-top:10px;color:#ff6464;">
-    Hoppá, valami hiba történt. Próbáld meg újra, vagy hívj telefonon.
-  </div>
-</form>
 
 <script>
   // Ha Netlify visszahoz ?success=true-vel, mutassuk a sikerüzenetet
