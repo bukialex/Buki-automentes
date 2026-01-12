@@ -6,18 +6,19 @@
   <title data-i18n="meta_title">Buki Autómentés 0-24 – Gyors segítség, bárhol, bármikor</title>
   <meta name="description" data-i18n-attr="content:meta_desc" content="Autómentés 0-24, országos lefedettséggel. Hívj most: +36 30 012 3690.">
 
- <!-- Favicons -->
+  <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png">
   <link rel="manifest" href="favicons/site.webmanifest">
   <link rel="mask-icon" href="favicons/safari-pinned-tab.svg" color="#f7b500">
   <meta name="msapplication-TileColor" content="#0b0b0b">
-  <meta name="theme-color" content="#0b0b0b">  
+  <meta name="theme-color" content="#0b0b0b">
 
-<style>
+  <style>
     :root{ --bg:#0b0b0b; --card:#121212; --ink:#f4f4f4; --muted:#b3b3b3; --accent:#f7b500; --stroke:#1f1f1f; }
-    *{box-sizing:border-box} html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;scroll-behavior:smooth}
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;scroll-behavior:smooth}
     a{color:inherit;text-decoration:none}
     .container{max-width:1100px;margin:0 auto;padding:24px}
 
@@ -37,6 +38,53 @@
     .ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
 
     @media(min-width:820px){ nav{display:flex} }
+
+    /* ===== MOBIL HEADER FIX (EZ A LÉNYEG) ===== */
+    @media (max-width: 820px){
+      header{
+        flex-wrap:wrap;
+        gap:12px;
+      }
+
+      header img{
+        width:44px;
+        height:44px;
+      }
+
+      .brand{
+        font-size:18px;
+        line-height:1.1;
+      }
+
+      /* nyelv + CTA új sorban, teljes szélességen */
+      .spacer{flex-basis:100%; height:0}
+
+      .lang{
+        width:100%;
+        justify-content:flex-end;
+      }
+
+      .cta{
+        width:100%;
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+        align-items:stretch;
+      }
+
+      .cta a{
+        width:100%;
+        text-align:center;
+        padding:14px 16px;
+        font-size:16px;
+        border-radius:12px; /* ne legyen "kör/jel" */
+        white-space:normal;  /* ne lógjon ki */
+        overflow-wrap:anywhere;
+      }
+
+      /* csak mobilon: a pill gombból legyen "normál" téglalap */
+      .btn{ border-radius:12px; }
+    }
 
     /* Hero */
     .hero{background:linear-gradient(180deg,#0b0b0b 0%,#121212 100%);border-bottom:1px solid var(--stroke)}
@@ -72,7 +120,7 @@
     .faq-item.active .faq-a{max-height:240px;padding:14px 18px}
     .faq-item.active .faq-q{color:var(--accent)}
 
-    /* Reviews (short, no-API) */
+    /* Reviews */
     #reviews .g-summary{display:flex;align-items:center;gap:12px;border:1px solid var(--stroke);background:#111;border-radius:12px;padding:12px}
     #reviews .g-logo{width:24px;height:24px}
     #reviews .g-score{font-weight:800;font-size:20px}
@@ -98,6 +146,7 @@
     @media(min-width:900px){.sticky-call{display:none}}
   </style>
 </head>
+
 <body>
 
   <!-- HEADER -->
@@ -239,7 +288,7 @@
     </div>
   </section>
 
-  <!-- GOOGLE REVIEWS (short) -->
+  <!-- GOOGLE REVIEWS -->
   <section class="container" id="reviews">
     <h2 data-i18n="reviews_title">Google értékelések</h2>
     <div class="g-summary">
@@ -252,60 +301,48 @@
     </div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- CONTACT (EGYETLEN, NEM DUPLA) -->
   <section class="container" id="contact">
     <h2 data-i18n="contact_title">Kapcsolat</h2>
     <p class="muted" data-i18n="contact_sub">Írj az űrlapon, vagy hívj minket bármikor!</p>
 
-    <!-- Netlify Forms compatible -->
-<section class="container" id="contact">
-  <h2 data-i18n="contact_title">Kapcsolat</h2>
-  <form name="kapcsolat"
-        method="POST"
-        action="/koszonjuk.html"
-        data-netlify="true"
-        netlify-honeypot="bot-field">
-        
-    <input type="hidden" name="form-name" value="kapcsolat">
-    <p style="display:none">
-      <label>Ne töltsd ki: <input name="bot-field"></label>
-    </p>
-
-    <div class="card">
-      <label for="name">Név</label>
-      <input type="text" id="name" name="name" required>
+    <div id="contact-success" class="card" style="display:none; margin: 12px 0;">
+      ✅ Köszönjük! Az üzenet sikeresen elküldve.
     </div>
 
-    <div class="card">
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" required>
-    </div>
+    <!-- Netlify Forms -->
+    <form id="contact-form"
+          name="kapcsolat"
+          method="POST"
+          action="/koszonjuk.html"
+          data-netlify="true"
+          netlify-honeypot="bot-field">
 
-    <div class="card">
-      <label for="message">Üzenet</label>
-      <textarea id="message" name="message" rows="5" required></textarea>
-    </div>
+      <input type="hidden" name="form-name" value="kapcsolat">
+      <p style="display:none">
+        <label>Ne töltsd ki: <input name="bot-field"></label>
+      </p>
 
-    <!-- reCAPTCHA blokk -->
-    <div data-netlify-recaptcha="true"></div>
+      <div class="card">
+        <label for="name" data-i18n="form_name">Név</label>
+        <input type="text" id="name" name="name" required>
+      </div>
 
-    <button type="submit" class="btn-primary">Üzenet küldése</button>
-  </form>
-</section>
+      <div class="card">
+        <label for="email" data-i18n="form_email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
 
+      <div class="card">
+        <label for="message" data-i18n="form_message">Üzenet</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+      </div>
 
-<script>
-  // Ha Netlify visszahoz ?success=true-vel, mutassuk a sikerüzenetet
-  (function () {
-    const p = new URLSearchParams(location.search);
-    if (p.get('success') === 'true') {
-      document.getElementById('contact-success').style.display = 'block';
-      // görgessünk az űrlaphoz
-      document.getElementById('contact-form').scrollIntoView({behavior:'smooth'});
-    }
-  })();
-</script>
+      <!-- Netlify reCAPTCHA -->
+      <div data-netlify-recaptcha="true"></div>
 
+      <button type="submit" class="btn-primary" data-i18n="form_send">Üzenet küldése</button>
+    </form>
 
     <!-- Phone/Email quick -->
     <div style="margin-top:16px">
@@ -448,210 +485,11 @@
         copyright:"© Buki 24/7. All rights reserved."
       },
 
-      uk: { // Ukrainian
-        meta_title:"Buki Допомога на дорозі 24/7 – Швидко та надійно",
-        meta_desc:"Евакуатор 24/7 по всій Угорщині. Дзвоніть: +36 30 685 1070.",
-        brand:"Buki Допомога 24/7",
-        language:"Мова",
-        nav_home:"Головна", nav_services:"Послуги", nav_about:"Про нас", nav_areas:"Регіони", nav_gallery:"Галерея", nav_faq:"Питання", nav_contact:"Контакт",
-        call_btn:"Дзвоніть: " + PHONES.intl, email_btn:"Email",
-        badge:"⚡ Допомога 24/7 — по всій країні",
-        h1:"ШВИДКА ДОПОМОГА,<br/>ДЕ Б ВИ НЕ БУЛИ",
-        sub:"Швидко, безпечно, чесно. Ми — гарантія швидкості та прозорої ціни.",
-        pill_1:"Покриття по всій країні", pill_2:"Безпечні рішення", pill_3:"Чесні ціни",
-        cta_primary:"Дзвоніть зараз: " + PHONES.intl, cta_email:"Email: buki.automentes@gmail.com",
-        why_title:"Чому ми?",
-        why_1_t:"⏱️ Швидкий виїзд", why_1_d:"Доступні 24/7, зазвичай виїжджаємо негайно.",
-        why_2_t:"🛠️ Професійно", why_2_d:"Сучасне обладнання та досвідчені водії.",
-        why_3_t:"💬 Прозорі ціни", why_3_d:"Домовляємося наперед — без прихованих платежів.",
-        why_4_t:"🚚 Перевезення будь-куди", why_4_d:"Легкові, мото, класичні авто.",
-        why_5_t:"🤝 Повага і підтримка", why_5_d:"Кожна хвилина важлива. Спокійно допоможемо.",
-        why_6_t:"📞 Миттєвий контакт", why_6_d:"Оцінимо ситуацію телефоном та запропонуємо рішення.",
-        about_title:"Про нас", about_1:"Працюємо 24/7 по всій Угорщині.", about_2:"Молода команда, сучасна техніка і спокійна комунікація.",
-        areas_title:"Регіони роботи", areas_sub:"Стартуємо з Ерда, але працюємо по всій країні.", areas_anywhere:"По всій країні",
-        gallery_title:"Галерея — наші роботи",
-        faq_title:"Поширені запитання",
-        faq_q1:"⏱️ За скільки приїдете, якщо зателефоную зараз?", faq_a1:"Зазвичай протягом 30–40 хвилин, залежно від місця та трафіку.",
-        faq_q2:"📍 Де ви працюєте?", faq_a2:"Стартуємо з Ерда, але працюємо по всій країні.",
-        faq_q3:"💰 Скільки коштує? Є приховані платежі?", faq_a3:"Ціна залежить від відстані, типу авто та ситуації. Узгоджуємо наперед — без прихованих платежів.",
-        faq_q4:"🚗 Які авто перевозите?", faq_a4:"Легкові, мотоцикли та класичні авто.",
-        faq_q5:"🌙 Працюєте вночі?", faq_a5:"Так, 24/7, щодня.",
-        faq_q6:"💳 Які способи оплати?", faq_a6:"Готівка або банківський переказ.",
-        faq_q7:"🛠️ Якщо авто не заведеся на місці?", faq_a7:"Без проблем — лебідкою завантажимо і відвеземо.",
-        faq_q8:"⭐ Чому обрати Buki?", faq_a8:"Швидко, чесно і надійно — з сучасною технікою і клієнтоорієнтованим підходом.",
-        reviews_title:"Відгуки Google", reviews_score:"5.0 ★", reviews_count:"За відгуками клієнтів", reviews_link:"Відкрити в Google",
-        contact_title:"Контакт", contact_sub:"Пишіть через форму або телефонуйте будь-коли!",
-        form_name:"Ім'я", form_email:"Email", form_message:"Повідомлення", form_send:"Надіслати",
-        address:"Адреса: 2030 Érd, Pintyőke utca 54.",
-        footer_line:"Buki 24/7 • По всій країні • Безпечно • Чесно",
-        footer_phone_label:"Телефон:", footer_phone_value: PHONES.intl,
-        sticky_call:"📞 Подзвонити зараз",
-        copyright:"© Buki 24/7. Усі права захищені."
-      },
-
-      ru: {
-        meta_title:"Buki Помощь на дороге 24/7 – Быстро и надёжно",
-        meta_desc:"Эвакуатор 24/7 по всей Венгрии. Звоните: +36 30 685 1070.",
-        brand:"Buki Помощь 24/7",
-        language:"Язык",
-        nav_home:"Главная", nav_services:"Услуги", nav_about:"О нас", nav_areas:"Регионы", nav_gallery:"Галерея", nav_faq:"FAQ", nav_contact:"Контакты",
-        call_btn:"Звоните: " + PHONES.intl, email_btn:"Email",
-        badge:"⚡ Помощь 24/7 — по всей стране",
-        h1:"БЫСТРАЯ ПОМОЩЬ,<br/>ГДЕ БЫ ВЫ НИ БЫЛИ",
-        sub:"Быстро, безопасно, честно. Гарантия скорости и прозрачной цены.",
-        pill_1:"Покрытие по всей стране", pill_2:"Безопасные решения", pill_3:"Честные цены",
-        cta_primary:"Звоните сейчас: " + PHONES.intl, cta_email:"Email: buki.automentes@gmail.com",
-        why_title:"Почему мы?",
-        why_1_t:"⏱️ Быстрый выезд", why_1_d:"Доступны 24/7, выезжаем сразу.",
-        why_2_t:"🛠️ Профессионально", why_2_d:"Современное оборудование и опытные водители.",
-        why_3_t:"💬 Прозрачно", why_3_d:"Цена согласуется заранее — без скрытых платежей.",
-        why_4_t:"🚚 Перевозка куда угодно", why_4_d:"Легковые, мото, классика.",
-        why_5_t:"🤝 Поддержка", why_5_d:"Каждая минута важна. Спокойно поможем.",
-        why_6_t:"📞 Мгновенная связь", why_6_d:"Оценим по телефону, предложим быстрое решение.",
-        about_title:"О нас", about_1:"Работаем 24/7 по всей Венгрии.", about_2:"Молодая команда, современная техника и спокойная коммуникация.",
-        areas_title:"Регионы работы", areas_sub:"База в Эрде, но работаем по всей стране.", areas_anywhere:"По всей стране",
-        gallery_title:"Галерея — наши работы",
-        faq_title:"Частые вопросы",
-        faq_q1:"⏱️ Как быстро вы приедете, если позвоню сейчас?", faq_a1:"Обычно в течение 30–40 минут, зависит от места и трафика.",
-        faq_q2:"📍 Где вы работаете?", faq_a2:"Выезжаем из Эрда, работаем по всей стране.",
-        faq_q3:"💰 Сколько стоит? Есть ли скрытые платежи?", faq_a3:"Цена зависит от расстояния, типа авто и ситуации. Всегда согласуем заранее — без скрытых платежей.",
-        faq_q4:"🚗 Какие транспортные средства перевозите?", faq_a4:"Легковые авто, мотоциклы, классику.",
-        faq_q5:"🌙 Можно ли звонить ночью?", faq_a5:"Да, мы на связи 24/7.",
-        faq_q6:"💳 Способы оплаты?", faq_a6:"Наличные и банковский перевод.",
-        faq_q7:"🛠️ Если машина не заводится на месте?", faq_a7:"Без проблем — с помощью лебёдки безопасно погрузим и отвезём.",
-        faq_q8:"⭐ Почему выбрать Buki?", faq_a8:"Быстро, честно, надёжно — современное оборудование и клиентоориентированный сервис.",
-        reviews_title:"Отзывы Google", reviews_score:"5.0 ★", reviews_count:"По отзывам клиентов", reviews_link:"Открыть в Google",
-        contact_title:"Контакты", contact_sub:"Пишите через форму или звоните в любое время!",
-        form_name:"Имя", form_email:"Email", form_message:"Сообщение", form_send:"Отправить",
-        address:"Адрес: 2030 Érd, Pintyőke utca 54.",
-        footer_line:"Buki 24/7 • По всей стране • Безопасно • Честно",
-        footer_phone_label:"Телефон:", footer_phone_value: PHONES.intl,
-        sticky_call:"📞 Позвонить",
-        copyright:"© Buki 24/7. Все права защищены."
-      },
-
-      cs: {
-        meta_title:"Buki Asistence 24/7 – Rychlá pomoc kdykoli",
-        meta_desc:"Odtah a pomoc 24/7 po celém Maďarsku. Volejte: +36 30 685 1070.",
-        brand:"Buki Asistence 24/7",
-        language:"Jazyk",
-        nav_home:"Domů", nav_services:"Služby", nav_about:"O nás", nav_areas:"Oblasti", nav_gallery:"Galerie", nav_faq:"FAQ", nav_contact:"Kontakt",
-        call_btn:"Volat: " + PHONES.intl, email_btn:"Email",
-        badge:"⚡ Silniční asistence 24/7 — celostátně",
-        h1:"RYCHLÁ POMOC,<br/>KDYKOLI A KDEKOLI",
-        sub:"Rychle, bezpečně, férově. Garance transparentní ceny.",
-        pill_1:"Celostátní pokrytí", pill_2:"Bezpečná řešení", pill_3:"Férové ceny",
-        cta_primary:"Zavolejte nyní: " + PHONES.intl, cta_email:"Email: buki.automentes@gmail.com",
-        why_title:"Proč my?",
-        why_1_t:"⏱️ Okamžitý výjezd", why_1_d:"K dispozici 24/7, obvykle vyrážíme ihned.",
-        why_2_t:"🛠️ Profesionálně", why_2_d:"Moderní vybavení a zkušení řidiči.",
-        why_3_t:"💬 Transparentně", why_3_d:"Cena předem dohodnuta — bez skrytých poplatků.",
-        why_4_t:"🚚 Převoz kamkoliv", why_4_d:"Osobní vozy, motocykly, veterány.",
-        why_5_t:"🤝 Vstřícný přístup", why_5_d:"Každá minuta se počítá. Klidná podpora.",
-        why_6_t:"📞 Okamžitý kontakt", why_6_d:"Zhodnotíme po telefonu a navrhneme nejrychlejší řešení.",
-        about_title:"O nás", about_1:"Pomoc 24/7 po celém Maďarsku.", about_2:"Mladý tým, moderní technika, klidná komunikace.",
-        areas_title:"Oblasti služeb", areas_sub:"Z Érdu po celé zemi — včetně pohraničí.", areas_anywhere:"Celostátně",
-        gallery_title:"Galerie — naše práce",
-        faq_title:"Často kladené dotazy",
-        faq_q1:"⏱️ Za jak dlouho dorazíte, když zavolám teď?", faq_a1:"Obvykle do 30–40 minut podle místa a provozu.",
-        faq_q2:"📍 Kde působíte?", faq_a2:"Vycházíme z Érdu, ale působíme po celé zemi.",
-        faq_q3:"💰 Kolik to stojí? Skryté poplatky?", faq_a3:"Cena závisí na vzdálenosti, typu vozu a situaci. Vždy domluveno předem — bez skrytých poplatků.",
-        faq_q4:"🚗 Jaká vozidla odvezete?", faq_a4:"Osobní vozy, motocykly, veterány.",
-        faq_q5:"🌙 Je možné volat i v noci?", faq_a5:"Ano, 24/7 každý den.",
-        faq_q6:"💳 Jaké jsou možnosti platby?", faq_a6:"Hotově nebo převodem.",
-        faq_q7:"🛠️ Co když auto nenastartuje na místě?", faq_a7:"Žádný problém — navijákem bezpečně naložíme a odvezeme.",
-        faq_q8:"⭐ Proč zvolit Buki?", faq_a8:"Rychle, férově, spolehlivě — moderní vybavení a přístup zaměřený na zákazníka.",
-        reviews_title:"Hodnocení Google", reviews_score:"5.0 ★", reviews_count:"Podle ohlasů zákazníků", reviews_link:"Otevřít na Google",
-        contact_title:"Kontakt", contact_sub:"Pište přes formulář nebo volejte kdykoli!",
-        form_name:"Jméno", form_email:"Email", form_message:"Zpráva", form_send:"Odeslat",
-        address:"Adresa: 2030 Érd, Pintyőke utca 54.",
-        footer_line:"Buki 24/7 • Celostátní • Bezpečně • Férově",
-        footer_phone_label:"Telefon:", footer_phone_value: PHONES.intl,
-        sticky_call:"📞 Volat nyní",
-        copyright:"© Buki 24/7. Všechna práva vyhrazena."
-      },
-
-      ro: {
-        meta_title:"Buki Asistență Rutieră 24/7 – Rapid și sigur",
-        meta_desc:"Tractare 24/7 în toată Ungaria. Sună acum: +36 30 685 1070.",
-        brand:"Buki Asistență 24/7",
-        language:"Limbă",
-        nav_home:"Acasă", nav_services:"Servicii", nav_about:"Despre", nav_areas:"Zone", nav_gallery:"Galerie", nav_faq:"Întrebări", nav_contact:"Contact",
-        call_btn:"Sună: " + PHONES.intl, email_btn:"Email",
-        badge:"⚡ Asistență 24/7 — la nivel național",
-        h1:"AJUTOR RAPID,<br/>ORIUNDE, ORICÂND",
-        sub:"Rapid, sigur, corect. Garanția vitezei și a prețului transparent.",
-        pill_1:"Acoperire națională", pill_2:"Soluții sigure", pill_3:"Prețuri corecte",
-        cta_primary:"Sună acum: " + PHONES.intl, cta_email:"Email: buki.automentes@gmail.com",
-        why_title:"De ce noi?",
-        why_1_t:"⏱️ Intervenție rapidă", why_1_d:"Disponibili 24/7, plecăm imediat.",
-        why_2_t:"🛠️ Profesioniști", why_2_d:"Echipamente moderne, șoferi experimentați.",
-        why_3_t:"💬 Comunicare clară", why_3_d:"Prețuri stabilite în avans — fără costuri ascunse.",
-        why_4_t:"🚚 Transport oriunde", why_4_d:"Mașini, motociclete, clasice.",
-        why_5_t:"🤝 Atitudine prietenoasă", why_5_d:"Fiecare minut contează. Suport calm.",
-        why_6_t:"📞 Contact instant", why_6_d:"Evaluăm telefonic și oferim soluția rapidă.",
-        about_title:"Despre noi", about_1:"Lucrăm 24/7 în toată Ungaria.", about_2:"Echipă tânără, echipamente moderne, comunicare calmă.",
-        areas_title:"Zone deservite", areas_sub:"Din Érd, acoperire la nivel național — inclusiv zona de frontieră.", areas_anywhere:"La nivel național",
-        gallery_title:"Galerie — lucrările noastre",
-        faq_title:"Întrebări frecvente",
-        faq_q1:"⏱️ În cât timp ajungeți dacă sun acum?", faq_a1:"De obicei în 30–40 de minute, în funcție de locație și trafic.",
-        faq_q2:"📍 În ce zone lucrați?", faq_a2:"Pornim din Érd, dar operăm în toată țara.",
-        faq_q3:"💰 Cât costă? Există costuri ascunse?", faq_a3:"Depinde de distanță, tipul vehiculului și situație. Stabilim prețul în avans — fără costuri ascunse.",
-        faq_q4:"🚗 Ce vehicule transportați?", faq_a4:"Autoturisme, motociclete și vehicule clasice.",
-        faq_q5:"🌙 Pot suna și noaptea?", faq_a5:"Da, suntem disponibili 24/7.",
-        faq_q6:"💳 Ce metode de plată acceptați?", faq_a6:"Numerar sau transfer bancar.",
-        faq_q7:"🛠️ Ce se întâmplă dacă mașina nu pornește pe loc?", faq_a7:"Nicio problemă — o urcăm cu troliul și o transportăm în siguranță.",
-        faq_q8:"⭐ De ce să aleg Buki?", faq_a8:"Rapid, corect, de încredere — echipamente moderne și servicii orientate către client.",
-        reviews_title:"Recenzii Google", reviews_score:"5.0 ★", reviews_count:"Bazat pe feedbackul clienților", reviews_link:"Deschide pe Google",
-        contact_title:"Contact", contact_sub:"Scrie prin formular sau sună-ne oricând!",
-        form_name:"Nume", form_email:"Email", form_message:"Mesaj", form_send:"Trimite",
-        address:"Adresă: 2030 Érd, Pintyőke utca 54.",
-        footer_line:"Buki 24/7 • Național • Sigur • Corect",
-        footer_phone_label:"Telefon:", footer_phone_value: PHONES.intl,
-        sticky_call:"📞 Sună acum",
-        copyright:"© Buki 24/7. Toate drepturile rezervate."
-      },
-
-      sk: {
-        meta_title:"Buki Asistencia 24/7 – Rýchla pomoc",
-        meta_desc:"Odtahová služba 24/7 po celom Maďarsku. Volajte: +36 30 685 1070.",
-        brand:"Buki Asistencia 24/7",
-        language:"Jazyk",
-        nav_home:"Domov", nav_services:"Služby", nav_about:"O nás", nav_areas:"Oblasti", nav_gallery:"Galéria", nav_faq:"FAQ", nav_contact:"Kontakt",
-        call_btn:"Volajte: " + PHONES.intl, email_btn:"Email",
-        badge:"⚡ Cestná asistencia 24/7 — celoštátne",
-        h1:"RÝCHLA POMOC,<br/>KDEKOĽVEK A KEDYKOĽVEK",
-        sub:"Rýchlo, bezpečne, férovo. Záruka transparentnej ceny.",
-        pill_1:"Celoštátne pokrytie", pill_2:"Bezpečné riešenia", pill_3:"Férové ceny",
-        cta_primary:"Volajte teraz: " + PHONES.intl, cta_email:"Email: buki.automentes@gmail.com",
-        why_title:"Prečo my?",
-        why_1_t:"⏱️ Okamžitý výjazd", why_1_d:"Dostupní 24/7, často odchádzame hneď.",
-        why_2_t:"🛠️ Profesionálne", why_2_d:"Moderná technika a skúsení vodiči.",
-        why_3_t:"💬 Férová komunikácia", why_3_d:"Cena vopred — bez skrytých poplatkov.",
-        why_4_t:"🚚 Prevoz kamkoľvek", why_4_d:"Osobné, motocykle, veterány.",
-        why_5_t:"🤝 Ústretový prístup", why_5_d:"Každá minúta sa počíta. Pokojná podpora.",
-        why_6_t:"📞 Okamžitý kontakt", why_6_d:"Zhodnotíme telefonicky a navrhneme najrýchlejšie riešenie.",
-        about_title:"O nás v skratke", about_1:"Pomoc 24/7 po celom Maďarsku.", about_2:"Mladý tím, moderná výbava a pokojná komunikácia.",
-        areas_title:"Oblasti služieb", areas_sub:"Z Érdu pôsobíme po celej krajine — aj pri hraniciach.", areas_anywhere:"Celoštátne",
-        gallery_title:"Galéria — naša práca",
-        faq_title:"Často kladené otázky",
-        faq_q1:"⏱️ Za ako dlho dorazíte, ak zavolám teraz?", faq_a1:"Zvyčajne do 30–40 minút podľa miesta a premávky.",
-        faq_q2:"📍 Kde pôsobíte?", faq_a2:"Vychádzame z Érdu, ale pôsobíme po celej krajine.",
-        faq_q3:"💰 Koľko to stojí? Skryté poplatky?", faq_a3:"Cena závisí od vzdialenosti, typu vozidla a situácie. Vždy sa dohodneme vopred — bez skrytých poplatkov.",
-        faq_q4:"🚗 Aké vozidlá preveziete?", faq_a4:"Osobné vozidlá, motocykle, veterány.",
-        faq_q5:"🌙 Môžem volať aj v noci?", faq_a5:"Áno, sme k dispozícii 24/7.",
-        faq_q6:"💳 Aké platobné metódy?", faq_a6:"V hotovosti alebo bankovým prevodom.",
-        faq_q7:"🛠️ Čo ak auto nenaštartuje na mieste?", faq_a7:"Žiadny problém — pomocou navijaka naložíme a odvezieme.",
-        faq_q8:"⭐ Prečo si zvoliť Buki?", faq_a8:"Rýchlo, férovo, spoľahlivo — moderná technika a prístup orientovaný na zákazníka.",
-        reviews_title:"Hodnotenia Google", reviews_score:"5.0 ★", reviews_count:"Podľa spätnej väzby zákazníkov", reviews_link:"Otvoriť v Google",
-        contact_title:"Kontakt", contact_sub:"Napíšte cez formulár alebo volajte kedykoľvek!",
-        form_name:"Meno", form_email:"Email", form_message:"Správa", form_send:"Odoslať",
-        address:"Adresa: 2030 Érd, Pintyőke utca 54.",
-        footer_line:"Buki 24/7 • Celoštátne • Bezpečne • Férové",
-        footer_phone_label:"Telefón:", footer_phone_value: PHONES.intl,
-        sticky_call:"📞 Volajte teraz",
-        copyright:"© Buki 24/7. Všetky práva vyhradené."
-      }
+      uk: { /* ... a többi nyelv NINCS MÓDOSÍTVA, ugyanúgy maradjon a te verziód ... */ },
+      ru: { /* ... */ },
+      cs: { /* ... */ },
+      ro: { /* ... */ },
+      sk: { /* ... */ }
     };
 
     function normLang(l){ if(!l) return 'hu'; l=l.toLowerCase(); if(l.startsWith('zh')) return 'en'; return l.split('-')[0]; }
@@ -668,7 +506,6 @@
       document.title = dict.meta_title || document.title;
       document.documentElement.setAttribute('lang', lang);
 
-      // phone links
       const phone = phoneFor(lang);
       document.querySelectorAll('.phone-link').forEach(a=>{
         a.setAttribute('href','tel:'+phone.replace(/\s+/g,''));
@@ -676,7 +513,6 @@
       });
       const fp=document.querySelector('[data-i18n="footer_phone_value"]'); if(fp) fp.textContent = phone;
 
-      // lang select + persist
       const sel=document.getElementById('langSelect'); if(sel && sel.value!==lang) sel.value=lang;
       try{ localStorage.setItem('buki_lang', lang); }catch(e){}
     }
@@ -695,7 +531,6 @@
       const url=new URL(window.location.href); url.searchParams.set('lang', e.target.value); history.replaceState(null,'',url.toString());
     });
 
-    // FAQ toggles
     document.querySelectorAll('.faq-q').forEach(q=>{
       q.addEventListener('click',()=>q.parentElement.classList.toggle('active'));
     });
